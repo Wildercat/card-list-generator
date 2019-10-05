@@ -9,7 +9,7 @@ async function getSets() {
 
 async function getCards(set) {
     let cardData = [];
-    let response = await fetch(`https://api.scryfall.com/cards/search?order=rarity&q=set:${set}`);
+    let response = await fetch(`https://api.scryfall.com/cards/search?order=rarity&q=set%3A${set}+-t%3Abasic`);
     let resJSON = await response.json();
     for (let i = 0; i < resJSON.data.length; i++) {
         cardData.push(resJSON.data[i]);
@@ -56,15 +56,15 @@ async function printCards() {
         } else if (cData[i].rarity == 'uncommon') {
             count = 2;
         }
-        
 
-            output += `${count} ${cData[i].name} <br>`;
 
-        
+        output += `${count} ${cData[i].name} <br>`;
+
+
         // console.log(output);
         p.innerHTML = output;
         app.appendChild(p);
     }
 
-    printCards();
-// setListPop();
+}
+printCards();
