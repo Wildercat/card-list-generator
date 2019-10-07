@@ -31,7 +31,9 @@ function mkTag(div, clss, content) {
     ht.textContent = content;
     return ht;
 }
-
+function setClick(e) {
+    printCards(e.target.id);
+}
 
 async function setListPop() {
     info = await getSets();
@@ -39,14 +41,19 @@ async function setListPop() {
     let setDrop = document.getElementById('setDrop');
     console.log(setDrop);
     for (let i = 0; i < info.data.length; i++) {
+        if (info.data[i].block_code) {
         let dropItem = mkTag('button', 'dropdown-item', info.data[i].name);
+        dropItem.setAttribute('id', info.data[i].block_code);
+        dropItem.addEventListener('click', setClick);
         // console.log(dropItem);
         setDrop.appendChild(dropItem);
+        }
     }
 }
 
-async function printCards() {
-    cData = await getCards(currentSet);
+async function printCards(curr) {
+    cData = await getCards(curr);
+    app.innerHTML = '';
     let p = mkTag('p', '', '');
     let output = '';
     for (let i = 0; i < cData.length; i++) {
@@ -56,10 +63,10 @@ async function printCards() {
         } else if (cData[i].rarity == 'uncommon') {
             count = 2;
         }
-
-
+        // if (cData[i].name.indexOf('//')) {
+        //     cData[i].name.indexOf('//')
+        // }
         output += `${count} ${cData[i].name} <br>`;
-
 
         // console.log(output);
         p.innerHTML = output;
@@ -67,4 +74,4 @@ async function printCards() {
     }
 
 }
-printCards();
+setListPop();

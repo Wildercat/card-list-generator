@@ -1,3 +1,9 @@
 Backlog
 -----------------
+choose quantity
+separate by columns
 make dropdown searchable
+
+separate output section:
+copy to clipboard button
+select all on click
